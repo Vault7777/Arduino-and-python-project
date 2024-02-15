@@ -1,0 +1,28 @@
+import serial
+import pymysql
+
+# Подключение к базе данных MySQL
+connection = pymysql.connect(host='hostname',
+                             user='username',
+                             password='password',
+                             database='database_name')
+cursor = connection.cursor()
+
+# Подключение к Arduino
+ser = serial.Serial('COM3', 9600)  # Подставьте правильный COM-порт для Arduino
+
+while True:
+    if ser.in_waiting > 0:
+        data = ser.readline().decode('utf-8').strip()
+
+        # Запрос к базе данных для проверки соответствия RFID-ключа
+        sql = "SELECT initials FROM students WHERE rfid_key = %s"
+        cursor.execute(sql, (data,))
+        result = cursor.fetchone()
+
+        if result:
+            print("Инициалы студента: {}".format(result[0]))
+        else:
+            print("RFID-ключ не найден в базе данных")
+
+connection.close()
