@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS school_database;
+
+USE school_database;
+
+CREATE TABLE IF NOT EXISTS students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rfid_key VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    class VARCHAR(50) NOT NULL
+);
+
+# import pymysql
+#
+# connection = pymysql.connect(host='localhost',
+                             user='your_username',
+                             password='your_password',
+                             database='school_database')
+#cursor = connection.cursor()
+#
+# Добавление данных в базу данных
+#students = [
+    ("RFID_Key_1", "Иванов", "Иван", "9A"),
+    ("RFID_Key_2", "Петров", "Петр", "10B"),
+    ("RFID_Key_3", "Сидоров", "Алексей", "11C")
+]
+#
+# for student in students:
+#     sql = "INSERT INTO students (rfid_key, last_name, first_name, class) VALUES (%s, %s, %s, %s)"
+#     cursor.execute(sql, student)
+#
+# connection.commit()
+#
+# cursor.close()
+# connection.close()
